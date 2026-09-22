@@ -5,6 +5,10 @@ services:
     image: sandeepkr98/automation:db
     ports:
       - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD_FILE: /run/secrets/root_password
+    secrets:
+      - root_password
     deploy:
       replicas: 1
     networks:
@@ -15,7 +19,7 @@ services:
     ports:
       - "1111:8080"
     deploy:
-      replicas: 3
+      replicas: 2
     depends_on:
       - devopsdb
     networks:
@@ -24,3 +28,7 @@ services:
 networks:
   mynetwork:
     driver: overlay
+
+secrets:
+  root_password:
+    file: ./mysql_root_password.txt
