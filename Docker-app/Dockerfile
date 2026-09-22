@@ -1,9 +1,14 @@
 FROM tomcat:8-jre11
 
-RUN rm -rf /usr/local/tomcat/webapps/*
+LABEL maintainer="Sandeep Kumar"
+LABEL description="dockerwebapp for production"
 
-COPY target/vprofile-v2.war /usr/local/tomcat/webapps/ROOT.war
+WORKDIR /usr/local/tomcat/
+
+EXPOSE 8080
+
+RUN rm -rf ./webapps/*
+
+COPY target/vprofile-v2.war ./webapps/ROOT.war
 
 CMD ["catalina.sh", "run"]
-
-#this is a comment 1
